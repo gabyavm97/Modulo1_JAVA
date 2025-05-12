@@ -1,49 +1,29 @@
-import java.util.Scanner; // Clase de Scanner
-
 public class Main {
-    public static void main (String[] args) {
-        Scanner scanner = new Scanner (System.in);
+    public static void main(String[]args){
+        //Vamos a crear diferentes obejtos con distintos metodos
 
-        //Solicitar datos
+        //constructor por defecto
+        Ticketsoporte ticket1 = new Ticketsoporte();
+        System.out.println("\nTicket creado con constructor por defecto:");
+        ticket1.mostrarInfo();
 
-        System.out.print("Paciente:");
-        String nombre =scanner.nextLine();
+        //constructor con parametros
+        Ticketsoporte ticket2 = new Ticketsoporte("Chicago","Accesos", 1);
+        System.out.println("\nTicket creado con constructor de parámetros");
+        ticket2.mostrarInfo();
 
-        System.out.print("Edad:");
-        int edad =scanner.nextInt();
-        scanner.nextLine();
+        //Cerrar ticket y mostrar nuevamente
+        ticket2.cerrar();
+        ticket2.mostrarInfo();
 
-        System.out.print("Expediente:");
-        double expediente =scanner.nextDouble();
-        scanner.nextLine();//limpiar el buffer
+        //constructor copia
+        Ticketsoporte ticket3 = new Ticketsoporte(ticket2);
+        System.out.println("\nTicket creado con constructor copia");
+        ticket3.mostrarInfo();
 
-        //Crear objeto Paciente
-
-        Paciente paciente = new Paciente(nombre,edad,expediente);
-
-        //Mostrar datos usando getters
-
-        System.out.println("\nDatos ingresados:");
-        System.out.println("Paciente:" + nombre);
-        System.out.println("Edad:" + edad);
-        System.out.println("Expediente:" + expediente);
-
-        scanner.close();
+        // constructor sobrecargado con solo titulo
+        Ticketsoporte ticket4 = new Ticketsoporte("Consulta sobre facturación");
+        System.out.println("\nTicket con constructor sobrecargado (solo titulo):");
+        ticket4.mostrarInfo();
     }
-
-}
-class Paciente{
-    private String nombre;
-    private int edad;
-    private double expediente;
-
-public Paciente (String nombre, int edad, double expediente){
-    this.nombre = nombre;
-    this.edad = edad;
-    this.expediente = expediente;
-}
-
-public String getNombre(){
-    return nombre;
-}
 }
