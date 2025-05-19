@@ -1,28 +1,44 @@
-import java.time.LocalTime;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.Comparator;
 
 public class Principal {
-    public static void main (String[]args){
-        //crear un pasajero
-        Pasajero pasajero1 = new Pasajero("Gabriela","GAVM91072");
-        // crear un vuelo
-        RetoVuelo vuelo1 = new RetoVuelo("AV456", "Costa Rica", LocalTime.of(16,00));
-        // reservar el asiento
-        vuelo1.reservarAsiento("A",24,pasajero1);
+    public static void main(String[] args) {
+        CopyOnWriteArrayList<Tema> temas= new CopyOnWriteArrayList<>();
+        temas.add(new Tema("Historia", 2));
+        temas.add(new Tema("Matemáticas", 1));
+        temas.add(new Tema("Ciencias Naturales", 3));
+        temas.add(new Tema("Matemáticas básicas", 4));
+        temas.add(new Tema("Cuidado del medio ambiente", 5));
 
-        // Primera reserva
-        System.out.println("Reserva realizada con éxito ✔\uFE0F");
-        System.out.println(vuelo1);
+            System.out.println("📦 Materias ordenadas por orden natural):");
+    temas.sort(null);
+    for (Tema t: temas)
 
-        // Cancelar la reserva
-        System.out.println("Cancelar reserva\n");
-        vuelo1.cancelarReserva();
-        System.out.println(vuelo1);
-
-        // reservar un asiento en el vuelo usando nombre y pasaporte
-        Pasajero pasajero2 = new Pasajero("Laura", "LAVM92090");
-        vuelo1.reservarAsiento("B",12,pasajero2);
-        System.out.println(vuelo1);
-
-
+    {
+        System.out.println(t);
     }
+        // por prioridad
+
+        System.out.println("\n📊 Temas ordenados por prioridad (1 = alta):");
+        temas.sort(new Comparator<Tema>() {
+            @Override
+            public int compare(Tema a, Tema b) {
+                return Integer.compare(a.prioridad, b.prioridad);
+            }
+        });
+        for (Tema t : temas) {
+            System.out.println(t);
+        }
+        ConcurrentHashMap<String, String> recursos = new ConcurrentHashMap<>();
+        recursos.put("Matemáticas", "https://recursos.edu/mate");
+        recursos.put("Historia", "https://recursos.edu/historia");
+        recursos.put("Ciencias Naturales", "https://recursos.edu/ciencias");
+        recursos.put("Cuidado del medio ambiente", "https://recursos.edu/medioambiente");
+
+        System.out.println("\n📚 Recursos por tema:");
+        recursos.forEach((titulo, recurso) -> {
+            System.out.println(titulo + " → " + recurso);
+        });
+}
 }
