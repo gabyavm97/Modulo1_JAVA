@@ -1,58 +1,41 @@
-import java.util.Optional;
-
 public class Factura {
-    //atributos de clase
-    private final double monto;
-    public final String descripcion;
-    private final Optional<String> rfc;
+    // atributos de la clase
+    String folio;
+    String cliente;
+    double total;
 
-    //constructor
-    public Factura(double monto, String descripcion, String rfc) {
-        if (descripcion == null || descripcion.trim().isEmpty()) {
-            throw new IllegalArgumentException("La descripcion no puede estar vacía");
-        }
-        if (monto <= 0) {
-            throw new IllegalArgumentException("El monto debe ser positivo");
-        }
-        this.monto = monto;
-        this.descripcion = descripcion;
-        this.rfc = Optional.ofNullable(rfc); //convierte null a optional empty
+    // constructor
+    public Factura(String folio, String cliente, double total) {
+        this.folio = folio;
+        this.cliente = cliente;
+        this.total = total;
     }
 
-    //constructor sobrecargado para facturas sin RFC (Cambio de atributos)
-    public Factura(double monto, String descripcion) {
-        this(monto, descripcion, null);
-    }
-
-    // --------- Getters Seguros------
-    public double getMonto() {
-        return monto;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public Optional<String> getRfc() {
-        return rfc;
-    }
-    //________ Metodo para resumen
-
-    public String getResumen() {
-        return String.format(
-                "Factura generada\n:" +
-                        "Descripción:%s\n" +
-                        "Monto: $%,.2f\n" +
-                        "RFC:%s",
-                descripcion,
-                monto,
-                rfc.orElse("No proporcionado")
-        );
-    }
-    //--------- formato to string  ----------
     @Override
-    public String toString(){
-        return getResumen();
+    public String toString() {
+        return "Factura [folio=" + folio +"cliente="+ cliente +",total=$ "+total+"]";
     }
-}
 
+    // equals
+    @Override
+    public boolean equals(Object obj) {
+        //1. verificar que es la misma instancia
+        if (this == obj) {
+            return true;
+        }
+        // 2. verificar si el objeto es nulo o de otra clase
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        // 3. hacer casting a factura
+        Factura otraFactura = (Factura) obj;
+
+        // 4. comparar los folios
+        return this.folio.equals(otraFactura.folio);
+    }
+    @Override
+    public int hashCode() {
+        return folio != null ? folio.hashCode():0;
+    }
+
+}
